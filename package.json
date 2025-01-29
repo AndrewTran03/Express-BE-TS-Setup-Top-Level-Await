@@ -2,10 +2,11 @@
   "name": "express-be-ts-setup-top-level-await",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/index.js",
+  "main": "./dist/src/backend.js",
   "scripts": {
     "build": "rm -rf dist && tsc",
-    "dev": "nodemon --exec 'node --loader ts-node/esm' src/backend.ts",
+    "dev": "nodemon --exec 'node --loader ts-node/esm' ./src/backend.ts",
+    "prod": "node --loader ts-node/esm ./dist/src/backend.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
