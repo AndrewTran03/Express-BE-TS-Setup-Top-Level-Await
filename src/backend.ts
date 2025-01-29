@@ -1,6 +1,6 @@
 import { readdir } from "fs/promises";
 import express from "express";
-import { APP_ROUTER } from "./routes/index";
+import { APP_ROUTER } from "./routes/index.js";
 
 const files = await readdir(".");
 console.log("Top-Level Await works!");
