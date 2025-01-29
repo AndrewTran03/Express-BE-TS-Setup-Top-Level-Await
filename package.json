@@ -1,0 +1,33 @@
+{
+  "name": "express-be-ts-setup-top-level-await",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "nodemon --exec 'node --loader ts-node/esm' src/backend.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndrewTran03/Express-BE-TS-Setup-Top-Level-Await.git"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "Andrew Tran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndrewTran03/Express-BE-TS-Setup-Top-Level-Await/issues"
+  },
+  "homepage": "https://github.com/AndrewTran03/Express-BE-TS-Setup-Top-Level-Await#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.12.0",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "typescript": "^5.7.3"
+  }
+}
