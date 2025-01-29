@@ -5,8 +5,11 @@
   "main": "./dist/src/backend.js",
   "scripts": {
     "build": "rm -rf dist && tsc",
-    "dev": "nodemon --exec 'node --loader ts-node/esm' ./src/backend.ts",
-    "prod": "node --loader ts-node/esm ./dist/src/backend.js",
+    "dev": "NODE_ENV=development nodemon --exec 'node --loader ts-node/esm' ./src/backend.ts",
+    "prod": "NODE_ENV=production node --loader ts-node/esm ./dist/src/backend.js",
+    "prettier": "prettier --write \"**/*.ts*\" \"**/*.js*\"",
+    "lint": "eslint \"./src\"",
+    "lint:fix": "eslint \"./src\" --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,12 +25,31 @@
   },
   "homepage": "https://github.com/AndrewTran03/Express-BE-TS-Setup-Top-Level-Await#readme",
   "devDependencies": {
+    "@andrewt03/eslint-typescript-rules": "^0.0.57",
+    "@types/config": "^3.3.5",
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/node": "^22.12.0",
+    "body-parser": "^1.20.3",
+    "config": "^3.3.12",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.4.7",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-unicorn": "^56.0.1",
     "esm": "^3.2.20",
+    "globals": "^15.14.0",
+    "http": "^0.0.1-security",
     "nodemon": "^3.1.9",
+    "pino": "^9.6.0",
+    "pino-pretty": "^13.0.0",
+    "prettier": "^3.4.2",
     "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0"
+    "ts-node-dev": "^2.0.0",
+    "typescript-eslint": "^8.22.0",
+    "util": "^0.12.5",
+    "zod": "^3.24.1"
   },
   "dependencies": {
     "express": "^4.21.2",
