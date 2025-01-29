@@ -5,11 +5,7 @@ import tseslint from "typescript-eslint";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintImportPlugin from "eslint-plugin-import";
 
-import { dirname } from "node:path";
-import { fileURLToPath } from "node:url";
-
-const dirName = dirname(fileURLToPath(import.meta.url));
-console.log(dirName);
+const DIR_NAME = import.meta.dirname;
 
 export default [
   {
@@ -22,7 +18,7 @@ export default [
       parser: tseslint.parser,
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: dirName
+        tsconfigRootDir: DIR_NAME
       }
     },
     plugins: {
