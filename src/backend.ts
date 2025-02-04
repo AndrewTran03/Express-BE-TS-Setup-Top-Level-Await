@@ -7,7 +7,7 @@ let ENV_FILE_PATH = "";
 if (process.env["NODE_ENV"] === "development") {
   ENV_FILE_PATH = "../.env.development";
 } else if (process.env["NODE_ENV"] === "production" || process.env["NODE_ENV"] === "staging") {
-  ENV_FILE_PATH = "../.env.production";
+  ENV_FILE_PATH = "../../.env.production";
 } else {
   LOGGER.error('Invalid configuration for the "NODE_ENV" variable:');
   LOGGER.error(process.env["NODE_ENV"]);
@@ -19,9 +19,14 @@ LOGGER.info(`Current directory: ${DIR_NAME}`);
 
 LOGGER.debug(`Environment file path: ${ENV_FILE_PATH}`);
 
-dotenv.config({
-  path: path.resolve(DIR_NAME, ENV_FILE_PATH)
+const res = dotenv.config({
+  debug: true,
+  encoding: "utf8",
+  path: path.resolve(DIR_NAME, ENV_FILE_PATH),
+  override: true
 });
+
+LOGGER.debug(`Environment file path: ${util.inspect(res.parsed)}`);
 
 /* eslint-disable import/first */
 import bodyParser from "body-parser";
@@ -32,18 +37,27 @@ import { readdir } from "fs/promises";
 import http from "http";
 import util from "util";
 
+import { Config } from "../config/types.js";
 import { APP_ROUTER } from "./routes/index.js";
 
 // TEST CODE for "Top-Level Await"
 const files = await readdir(".");
 LOGGER.debug("Top-Level Await works!");
-LOGGER.debug("Files in the current directory:");
-for (const file of files) {
-  LOGGER.debug(file);
-}
+LOGGER.debug(files);
+// LOGGER.debug("Files in the current directory:");
+// for (const file of files) {
+//   LOGGER.debug(file);
+// }
+
+LOGGER.trace("Environment Variables:");
+LOGGER.trace(util.inspect(process.env, { depth: null }));
 
 LOGGER.trace("'Config' Internal Object Properties:");
 LOGGER.trace(util.inspect(config, { depth: null }));
+
+const { default: configVar } = await config.get<{ default: Config }>("variables");
+LOGGER.debug(typeof configVar);
+LOGGER.debug(configVar);
 
 // Fallback in case of invalid '.env.*' file configuration
 if (Object.values(config).includes("undefined")) {
@@ -66,9 +80,10 @@ app.use((_, res, next: NextFunction) => {
 });
 
 const server = http.createServer(app);
+LOGGER.trace(server);
 
-const backendServerPort = config.get<number>("backendServerPort");
-const backendServerUrl = config.get<string>("backendServerUrl");
+const backendServerPort = configVar.backendServerPort;
+const backendServerUrl = configVar.backendServerUrl;
 LOGGER.debug(`BACKEND SERVER PORT is...${backendServerPort} and BACKEND SERVER URL is...${backendServerUrl}`);
 
 // Check if backend port has been properly identified before starting Express backend server

@@ -1,6 +1,6 @@
 export type Config = {
-  frontendClientPort: string;
+  frontendClientPort: number;
   frontendClientUrl: string;
-  backendServerPort: string;
+  backendServerPort: number;
   backendServerUrl: string;
 };
